@@ -33,6 +33,7 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
       appBar: AppBar(
         title: Text('Fading Text Animation'),
       ),
+      backgroundColor: Colors.grey, // Set background color to gray
       body: Center(
         child: TweenAnimationBuilder<Color?>(
           tween: ColorTween(
