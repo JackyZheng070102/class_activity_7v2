@@ -31,29 +31,39 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fading Text Animation'),
+        title: Text('Interactive Animations'),
       ),
-      backgroundColor: Colors.grey, // Set background color to gray
+      backgroundColor: Colors.grey,
       body: Center(
-        child: TweenAnimationBuilder<Color?>(
-          tween: ColorTween(
-            begin: Colors.blue, // Start with blue color
-            end: _isVisible ? Colors.blue : Colors.red, // Fades to red
-          ),
-          duration: Duration(seconds: 1),
-          builder: (context, color, child) {
-            return AnimatedOpacity(
-              opacity: _isVisible ? 1.0 : 0.0,
-              duration: Duration(seconds: 1),
-              child: Text(
-                'Hello Flutter!',
-                style: TextStyle(
-                  fontSize: 48, // Increased text size
-                  color: color, // Animating color change
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: toggleVisibility, // Tap to toggle text visibility
+              child: AnimatedOpacity(
+                opacity: _isVisible ? 1.0 : 0.0,
+                duration: const Duration(seconds: 2),
+                curve: Curves.easeInOut,
+                child: const Text(
+                  'Hello, Flutter!',
+                  style: TextStyle(fontSize: 48, color: Colors.blue),
                 ),
               ),
-            );
-          },
+            ),
+            const SizedBox(height: 50),
+            GestureDetector(
+              onTap: toggleVisibility, // Tap to toggle image visibility
+              child: AnimatedOpacity(
+                opacity: _isVisible ? 1.0 : 0.0,
+                duration: const Duration(seconds: 2),
+                curve: Curves.easeInOut,
+                child: Image.asset(
+                  'assets/asset1.jpg', // Ensure the file name matches
+                  width: 200,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
