@@ -40,14 +40,23 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
           children: [
             GestureDetector(
               onTap: toggleVisibility, // Tap to toggle text visibility
-              child: AnimatedOpacity(
-                opacity: _isVisible ? 1.0 : 0.0,
-                duration: const Duration(seconds: 2),
-                curve: Curves.easeInOut,
-                child: const Text(
-                  'Hello, Flutter!',
-                  style: TextStyle(fontSize: 48, color: Colors.blue),
+              child: TweenAnimationBuilder<Color?>(
+                tween: ColorTween(
+                  begin: Colors.blue, // Start with blue color
+                  end: _isVisible ? Colors.blue : Colors.red, // Fades to red
                 ),
+                duration: const Duration(seconds: 2),
+                builder: (context, color, child) {
+                  return AnimatedOpacity(
+                    opacity: _isVisible ? 1.0 : 0.0,
+                    duration: const Duration(seconds: 2),
+                    curve: Curves.easeInOut,
+                    child: Text(
+                      'Hello, Flutter!',
+                      style: TextStyle(fontSize: 48, color: color), // Apply animated color
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(height: 50),
